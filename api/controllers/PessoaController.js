@@ -49,6 +49,61 @@ class PessoaControler {
             return res.status(500).json(error.message)
         }
     }
+
+    //http://localhost:3000/pessoas/1/matricula/5
+    //http://localhost:3000/pessoas/:estudanteId/matricula/:matriculaId
+    static async pegaUmaMatricula(req, res) {
+        const { estudanteId, matriculaId } = req.params
+        try {
+          const umaMatricula = await database.Matriculas.findOne( { 
+            where: { 
+              id: Number(matriculaId),
+              estudante_id: Number(estudanteId)
+            }
+          })
+          return res.status(200).json(umaMatricula)
+        } catch (error) {
+          return res.status(500).json(error.message)
+        }
+    }
+
+    //http://localhost:3000/pessoas/1/matricula
+    //passar status e turma_id
+    static async criaMatricula(req, res) {
+        const { estudanteId } = req.params
+        const novaMatricula = { ...req.body, estudante_id: Number(estudanteId) }
+        try {
+          const novaMatriculaCriada = await database.Matriculas.create(novaMatricula)
+          return res.status(201).json(novaMatriculaCriada)
+        } catch (error) {
+          return res.status(500).json(error.message)
+        }
+    }
+
+    //http://localhost:3000/pessoas/1/matricula/5
+    //exemplo: mudar status para cancelado
+    static async atualizaMatricula(req, res) {
+        const { estudanteId, matriculaId } = req.params
+        const novasInfos = req.body
+        try {
+          await database.Matriculas.update(novasInfos, { where: { id: Number(matriculaId), estudante_id: Number(estudanteId) }})
+          const matriculaAtualizada = await database.Matriculas.findOne( { where: { id: Number(matriculaId) }})
+          return res.status(200).json(matriculaAtualizada)
+        } catch (error) {
+          return res.status(500).json(error.message)
+        }
+    }
+
+    //http://localhost:3000/pessoas/2/matricula/6
+    static async deletaMatricula(req, res) {
+        const { estudanteId, matriculaId } = req.params
+        try {
+          await database.Matriculas.destroy({ where: { id: Number(matriculaId) }})
+          return res.status(200).json({ mensagem: `id ${matriculaId} deletado` })
+        } catch (error) {
+          return res.status(500).json(error.message)
+        }
+    }
 }
 
 module.exports = PessoaControler
