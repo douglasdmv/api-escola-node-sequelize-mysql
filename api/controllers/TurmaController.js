@@ -1,4 +1,4 @@
-
+const database = require('../models');
 
 class TurmaController {
 
