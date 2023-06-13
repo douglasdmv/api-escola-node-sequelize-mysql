@@ -14,5 +14,7 @@ router.get('/pessoas/:estudanteId/matricula/:matriculaId', PessoaControler.pegaU
 router.post('/pessoas/:estudanteId/matricula', PessoaControler.criaMatricula)
 router.put('/pessoas/:estudanteId/matricula/:matriculaId', PessoaControler.atualizaMatricula)
 router.delete('/pessoas/:estudanteId/matricula/:matriculaId', PessoaControler.deletaMatricula)
+router.post('/pessoas/:estudanteId/matricula/:matriculaId/restaura', PessoaControler.restauraMatricula)
+router.get('/pessoas/:estudanteId/matricula', PessoaControler.pegaMatriculas)
 
 module.exports = router

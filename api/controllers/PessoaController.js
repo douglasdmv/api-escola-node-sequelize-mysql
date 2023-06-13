@@ -123,6 +123,31 @@ class PessoaControler {
           return res.status(500).json(error.message)
         }
     }
+
+    static async restauraMatricula(req, res) {
+        const { estudanteId, matriculaId } = req.params
+        try {
+          await database.Matriculas.restore({ where: { id: Number(matriculaId), estudante_id: Number(estudanteId) }})
+          return res.status(200).json({ mensagem: `id ${matriculaId} restaurado` })
+        } catch (error) {
+          return res.status(500).json(error.message)
+        }
+    }
+
+    static async pegaMatriculas(req, res) {
+        const { estudanteId } = req.params
+        try {
+          const pessoa = await database.Pessoas.findOne( { 
+            where: { 
+              id: Number(estudanteId) 
+            }
+          })
+          const matriculas = await pessoa.getAulasMatriculadas()
+          return res.status(200).json(matriculas)
+        } catch (error) {
+          return res.status(500).json(error.message)
+        }
+    }
 }
 
 module.exports = PessoaControler
