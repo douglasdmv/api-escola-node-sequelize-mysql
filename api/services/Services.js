@@ -5,12 +5,12 @@ class Services {
         this.nomeDoModelo = nomeDoModelo
     }
 
-    async pegaTodosOsRegistros() {
-        return await database[this.nomeDoModelo].findAll()
+    async pegaTodosOsRegistros(where = {}) {
+        return await database[this.nomeDoModelo].findAll({ where: { ...where } })
     }
 
-    async pegaUmRegistro(id) {
-        return await database[this.nomeDoModelo].findOne( { where: { id: Number(id) }})
+    async pegaUmRegistro(where = {}) {
+        return await database[this.nomeDoModelo].findOne( { where: { ...where }})
     }
 
     async criaRegistro(dados) {
@@ -26,8 +26,21 @@ class Services {
     }
 
     async apagaRegistro(id) {
-        await database[this.nomeDoModelo].destroy({ where: { id: Number(id) }})
-        return { mensagem: `id ${id} deletado`}
+        await database[this.nomeDoModelo].destroy({ where: { id: id }})
+    }
+
+    async restauraRegistro(id) {
+        return database[this.nomeDoModelo].restore({ where: { id: id }})
+    }
+
+    async consultaRegistroApagado(id) {
+        return database[this.nomeDoModelo]
+          .findOne({ paranoid: false, where: { id: Number(id) } })
+    }
+    
+    async encontraEContaRegistros(where = {}, agregadores) {
+        return database[this.nomeDoModelo]
+          .findAndCountAll({ where: { ...where }, ...agregadores })
     }
 }
 

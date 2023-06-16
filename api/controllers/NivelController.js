@@ -17,7 +17,7 @@ class NivelController {
     static async pegaUmNivel(req, res) {
       const { id } = req.params
       try {
-        const umNivel = await database.Niveis.findOne( { where: { id: Number(id) }})
+        const umNivel = await niveisServices.pegaUmRegistro({ id })
         return res.status(200).json(umNivel)
       } catch (error) {
         return res.status(500).json(error.message)
@@ -26,7 +26,7 @@ class NivelController {
 
     static async criaNivel(req, res) {
       try {
-        const novoNivel = await database.Niveis.create(req.body)
+        const novoNivel = await niveisServices.criaRegistro(req.body)
         return res.status(201).json(novoNivel)
       } catch (error) {
         return res.status(500).json(error.message)
@@ -36,9 +36,8 @@ class NivelController {
     static async atualizaNivel(req, res) {
       const { id } = req.params
       try {
-        await database.Niveis.update(req.body, { where: { id: Number(id) }})
-        const atualizaNivel = await database.Niveis.findOne( { where: { id: Number(id) }})
-        return res.status(200).json(atualizaNivel)
+        await niveisServices.atualizaRegistro(req.body, id)
+        return res.status(200).json({ mensagem: `id ${id} atualizado` })
       } catch (error) {
         return res.status(500).json(error.message)
       }
@@ -47,7 +46,7 @@ class NivelController {
     static async apagaNivel(req, res) {
       const { id } = req.params
       try {
-        await database.Niveis.destroy({ where: { id: Number(id) }})
+        await niveisServices.apagaRegistro(id)
         return res.status(200).json({ mensagem: `id ${id} deletado`})
       } catch (error) {
         return res.status(500).json(error.message)
@@ -57,7 +56,7 @@ class NivelController {
     static async restauraNivel(req, res) {
       const { id } = req.params
       try {
-        await database.Niveis.restore({ where: { id: Number(id) }})
+        await niveisServices.restauraRegistro(id)
         return res.status(200).json({ mensagem: `id ${id} restaurado`})
       } catch (error) {
         return res.status(500).json(error.message)
