@@ -20,14 +20,14 @@
 ![diagrama](/docs/diagrama-relacional.PNG)
 
 ## Rodando o projeto
- Se for baixar o projeto pela primeira vez, será necessário o comando ˋnpm installˋ para gerar o package.json, e assim utilizar todas as dependências necessárias.
+ Se for baixar o projeto pela primeira vez, será necessário o comando ˋ npm install ˋ para gerar o package.json, e assim utilizar todas as dependências necessárias.
  
- É possível também verificar as bibliotecas desatualizadas, através do comando ´npm outdated´. A partir disso, você pode colocar a versão desejada no package.json e em seguida utilizar o comando ˋnpm updateˋ.
+ É possível também verificar as bibliotecas desatualizadas, através do comando ´npm outdated´. A partir disso, você pode colocar a versão desejada no package.json e em seguida utilizar o comando ˋ npm update ˋ.
 
  Como estamos utilizando um banco de dados MySQL local, deve-se verificar os parâmetros que estão sendo passados no config.json, em development. Com o banco conectado e a database 'escola_ingles' criada, temos os seeders prontos para popular as tabelas, para fins de testes. Para passarmos os dados no banco, serão necessários os comandos abaixo:
 
- ˋˋˋ
-npx sequelize-cli db:migrate
-npx sequelize-cli db:seed:all
- ˋˋˋ
+ ```
+ npx sequelize-cli db:migrate
+ npx sequelize-cli db:seed:all
+ ```
 
