@@ -1,6 +1,9 @@
 # API para escola de inglês
  API feita para um sistema de controle de alunos e turmas de uma escola de inglês. A idéia do projeto é fazer a matrícula de pessoas (podendo ser estudantes ou docentes), de acordo com sua turma e nível de aprendizado. Para isso, além do cadastro de pessoas, temos todos os processos de criação de níveis, turmas e matrículas.
 
+## Documentação da API
+ - [Documentação Postman](https://documenter.getpostman.com/view/24173078/2s93shzpLf)
+
 ## Ferramentas
 - Node.JS
 - Javascript
